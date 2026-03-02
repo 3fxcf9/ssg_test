@@ -28,7 +28,7 @@ jobs:
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: 5
-          opam-disable-cache: false
+          dune-cache: true
 
       - name: Install just
         uses: taiki-e/install-action@just
@@ -55,7 +55,8 @@ jobs:
           eval $(opam env)
 
           mkdir output
-          ./mde_ssg/_build/default/course_manager.exe ssg ./source ./output
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
+          ./mde_ssg/_build/default/course_manager.exe ssg ./source ./output --http-root="$REPO_NAME"
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
