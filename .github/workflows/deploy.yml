@@ -28,11 +28,12 @@ jobs:
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: 5
+          opam-disable-cache: false
 
       - name: Install just
         uses: taiki-e/install-action@just
 
-      - name: Build SSG
+      - name: Setup dependencies and assets
         run: |
           eval $(opam env)
 
@@ -40,14 +41,20 @@ jobs:
 
           cd mde_ssg
           opam install . --deps-only -y
-
           just download_assets
+
+      - name: Build SSG
+        run: |
+          eval $(opam env)
+
+          cd mde_ssg
           just build
 
       - name: Run SSG
         run: |
           eval $(opam env)
 
+          mkdir output
           ./mde_ssg/_build/default/course_manager.exe ssg ./source ./output
 
       - name: Upload Pages Artifact
