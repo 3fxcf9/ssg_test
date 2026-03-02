@@ -48,7 +48,7 @@ jobs:
         run: |
           eval $(opam env)
 
-          ./mde_ssg/course_manager.exe ssg ./source ./output
+          ./mde_ssg/_build/default/course_manager.exe ssg ./source ./output
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
