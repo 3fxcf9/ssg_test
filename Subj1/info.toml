@@ -1,0 +1,9 @@
+[card]
+title = "M1"
+subtitle = "sub"
+right = "r"
+
+[page]
+template = "list"
+title = "Math"
+right = "rr"
